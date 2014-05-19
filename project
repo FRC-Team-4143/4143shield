@@ -1,0 +1,3 @@
+schematics roborioarduinoshield.sch
+elements-dir ~/roborioarduinoshield
+output-name roboshield1
