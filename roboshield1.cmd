@@ -1,20 +1,34 @@
 # Pin name action command file
 
 # Start of element CONN2
-ChangePinName(CONN2, 5, 5)
-ChangePinName(CONN2, 3, 3)
-ChangePinName(CONN2, 1, 1)
+ChangePinName(CONN2, 8, 8)
+ChangePinName(CONN2, 7, 7)
 ChangePinName(CONN2, 6, 6)
+ChangePinName(CONN2, 5, 5)
 ChangePinName(CONN2, 4, 4)
+ChangePinName(CONN2, 3, 3)
 ChangePinName(CONN2, 2, 2)
+ChangePinName(CONN2, 1, 1)
 
 # Start of element CONN1
-ChangePinName(CONN1, 5, 5)
-ChangePinName(CONN1, 3, 3)
-ChangePinName(CONN1, 1, 1)
+ChangePinName(CONN1, 18, 18)
+ChangePinName(CONN1, 17, 17)
+ChangePinName(CONN1, 16, 16)
+ChangePinName(CONN1, 15, 15)
+ChangePinName(CONN1, 14, 14)
+ChangePinName(CONN1, 13, 13)
+ChangePinName(CONN1, 12, 12)
+ChangePinName(CONN1, 11, 11)
+ChangePinName(CONN1, 10, 10)
+ChangePinName(CONN1, 9, 9)
+ChangePinName(CONN1, 8, 8)
+ChangePinName(CONN1, 7, 7)
 ChangePinName(CONN1, 6, 6)
+ChangePinName(CONN1, 5, 5)
 ChangePinName(CONN1, 4, 4)
+ChangePinName(CONN1, 3, 3)
 ChangePinName(CONN1, 2, 2)
+ChangePinName(CONN1, 1, 1)
 
 # Start of element U102
 ChangePinName(U102, 34, I2C SDA)
