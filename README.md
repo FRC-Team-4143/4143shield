@@ -4,4 +4,6 @@ PCB to breakout and glue an NI RoboRio to an Arduino with extra analog ports and
 
 gEDA tools are used. http://www.geda-project.org/
 
+![alt tag](https://github.com/FRC-Team-4143/4143shield/blob/master/roboshield1.png)
+
 NOT READY YET FOR PRODUCTION
