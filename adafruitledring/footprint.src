@@ -1,0 +1,201 @@
+#!/usr/bin/perl
+
+# Given a single filename argument, produce a footprint file for a particular
+# part suitable for use with pcb having that name. 
+
+use strict;
+use warnings;
+
+use Data::Dumper;
+use POSIX qw( floor );
+
+use Pcb_9 qw( PIN_SQUARE );
+
+
+@ARGV == 1 or die "wrong number or arguments";
+
+my $ff = $ARGV[0];
+
+my $pcb = Pcb_9->new(debug => 1);
+
+$pcb->element_begin(description => "$ff", output_file => "$ff", dim => 'mils',
+                    text_x => -2042, text_y => -2042);
+
+# Translations to apply to the coordinates given to the xli(), arbcxli(),
+# etc. routines.
+my ($rx, $ry) = (2700 / 2, 2100 / 2);
+
+sub arbcxli # {{{1
+{
+    # Add a rectangle to $pcb by corner coordinates, rather than by
+    # size/center, with translations ($rx, $ry) and y axis inversion applied.
+
+    @_ == 4 or die "wrong number of arguments";
+    my ($x1, $y1, $x2, $y2) = @_;
+
+    $pcb->element_add_rectangle(
+        x => floor(($x2 + $x1) / 2.0 + 0.5 - $rx),
+        y => - floor(($y2 + $y1) / 2.0 + 0.5 - $ry),
+        'length' => $x2 - $x1,
+        width => $y2 - $y1);
+} # }}}1
+
+sub srtxli # {{{1
+{
+    # Set the refdes text coordinates, with coordinate tranlsations ($rx,
+    # $ry) and y axis inversion applied.
+    @_ == 2 or die "wrong number of arguments";
+    my ($x, $y) = @_;
+
+    $pcb->element_set_text_xy(x => $x - $rx, y => -($y - $ry));
+} # }}}1
+
+# Set refdes text position just above the top left corner of the outline.
+srtxli(0, 0);
+
+sub xli # {{{1
+{
+    # Return a hash of the the given named x and y coordinates translated
+    # by $rx, $ry and subject to y axis inversion.
+
+    if ( @_ == 2 and $_[0] =~ m/\d+/ and $_[1] =~ m/\d+/ ) {
+        die "wrong arguments, and both numbers, did you not use named args?";
+    }
+
+    @_ == 4 or die "wrong number of arguments:".scalar(@_);
+    my ($label1, $val1, $label2, $val2) = @_;
+
+    my %ah = @_;
+    defined($ah{x}) or die "no argument named x to xli()";
+    defined($ah{y}) or die "no argument named y to xli()";
+
+    my $x = $ah{x};
+    my $y = $ah{y};
+
+    return ('x' => $x - $rx, 'y' => -($y - $ry));
+} # }}}1
+
+sub point_1_sip_row # {{{1
+{
+  # Add to $pcb a row of pins suitable for a SIP part with 0.1 in pin spacing.
+  # Arguments are the pin count, named x and y coordinates of the first
+  # pin, direction of the pin row ('x' or 'y' or '-x' or '-y'), and array
+  # reference containing the pin numbers of the pins.  Note that the sense
+  # of the y axis direction (negative or positive) is in terms of the native
+  # PCB interpretation (y axis points down), and is not affected by any xli()
+  # call applied to the named x and y coordinate arguments.
+
+  @_ == 7 or die "wrong number of arguments";
+  my ($pc, $dn1 => $d1, $dn2 => $d2, $dir, $pns) = @_;
+
+  # Take care of goofy named args we get from using xli() routine.
+  my ($x, $y);
+  if ( $dn1 eq 'x' ) {
+      $x = $d1;
+      $dn2 eq 'y' or die "missing named argument y";
+      $y = $d2;
+  }
+  elsif ( $dn1 eq 'y' ) {
+      $x = $d2;
+      $dn2 eq 'x' or die "missing named argument x";
+      $y = $d1;
+  }
+  else {
+      die "bad dimension name '$dn1'";
+  }
+
+  # Handle pin rows that run in the -x or -y direction by stripping the
+  # minus sign and using a maybe negative factor.
+  my $mbpf = 1;
+  $dir =~ s/^(-)//;
+  if ( $1 eq '-' ) {
+      #die "cp1";
+      $mbpf = -1;
+  }
+
+  for ( my $ii = 0 ; $ii < $pc ; $ii++ ) {
+      $pcb->element_add_pin(
+          x => $x + ($dir eq 'x' ? 100 * $mbpf * $ii : 0),
+          y => $y + ($dir eq 'y' ? 100 * $mbpf * $ii : 0),
+          thickness => 66,
+          drill_hole => 35,
+          mask => 10,
+          clearance => 10,
+          name => 'what_is_my_name',
+          pin_number => $pns->[$ii]
+      );
+  }
+} # }}}1
+
+sub point_1_2_row_header # {{{1
+{
+  # Add to $pcb two rows of pins suitable for a 0.1 pitch two row header
+  # with 0.1 in pin spacing.  Arguments are the pin count, named x and y
+  # coordinates of the upper left pin, direction of the pin rows ('x' or
+  # 'y'), two array reference containing the pin numbers of the pins (upper
+  # of lefter row first), and the pin number of a distinguished pin which
+  # should get square copper rather than round.  Note that the sense of the
+  # y axis direction (negative or positive) is in terms of the native PCB
+  # interpretation (y axis points down), and is not affected by any xli()
+  # call applied to the named x and y coordinate arguments.
+
+  @_ == 9 or die "wrong number of arguments (expected 9, got ".scalar(@_).")";
+  my ($pc, $dn1 => $d1, $dn2 => $d2, $dir, $r1pns, $r2pns, $spn) = @_;
+
+  $pc % 2 == 0 or die "two column headers must have an even number of pins";
+
+  # Take care of goofy named args we get from using xli() routine.
+  my ($x, $y);
+  if ( $dn1 eq 'x' ) {
+      $x = $d1;
+      $dn2 eq 'y' or die "missing named argument y";
+      $y = $d2;
+  }
+  elsif ( $dn1 eq 'y' ) {
+      $x = $d2;
+      $dn2 eq 'x' or die "missing named argument x";
+      $y = $d1;
+  }
+  else {
+      die "bad dimension name '$dn1'";
+  }
+
+  # This routine doesn't support negative direction rows, it makes the
+  # position and pin number interpretation too convoluted.
+  $dir !~ m/^-/ or die "negative direction rows are not supported";
+  my $mbpf = 1;   
+  
+  for ( my $ii = 0 ; $ii < $pc / 2 ; $ii++ ) {
+
+      $pcb->element_add_pin(
+          x => $x + ($dir eq 'x' ? 100 * $mbpf * $ii : 0),
+          y => $y + ($dir eq 'y' ? 100 * $mbpf * $ii : 0),
+          thickness => 66,
+          drill_hole => 46,
+          mask => 10,
+          clearance => 10,
+          pin_number => $r1pns->[$ii],
+          flags => ($r1pns->[$ii] == $spn ? PIN_SQUARE : 0));
+      # FIXME: WORK POINT: not sure the rotated forms are quite sensible...
+      $pcb->element_add_pin(
+          x => $x + ($dir eq 'x' ? 100 * $mbpf * $ii : 100),
+          y => $y + ($dir eq 'y' ? 100 * $mbpf * $ii : 100),
+          thickness => 66,
+          drill_hole => 46,
+          mask => 10,
+          clearance => 10,
+          pin_number => $r2pns->[$ii],
+          flags => ($r2pns->[$ii] == $spn ? PIN_SQUARE : 0));
+  }
+} # }}}1
+
+
+$pcb->element_add_pin( x => 500, y => 500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 1, clearance => 10);
+$pcb->element_add_pin( x => -500, y => 500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 2, clearance => 10);
+$pcb->element_add_pin( x => 500, y => -500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 3, clearance => 10);
+$pcb->element_add_pin( x => -500, y => -500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 4, clearance => 10);
+                                                                  
+
+$pcb->element_output();
+
+exit 0;
