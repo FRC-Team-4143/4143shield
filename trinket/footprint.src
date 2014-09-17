@@ -227,9 +227,9 @@ sub point_1_2_row_header # {{{1
 #point_1_sip_row(6, xli('x' => 2000-1000, 'y' => 1800), 'x', [9 .. 14]);
 #point_1_sip_row(6, xli('x' => 2000-1000, 'y' => 1900), 'x', [9 .. 14]);
 
-point_1_sip_row(8, xli('x' => 100, 'y' => 100), 'x', [1 .. 8]);
-point_1_sip_row(4, xli('x' => 900, 'y' => 200), 'y', [9 .. 12]);
-point_1_sip_row(8, xli('x' => 900, 'y' => 500), '-x', [13 .. 21]);
+point_1_sip_row(8, xli('x' => 000, 'y' => 000), 'x', [1 .. 8]);
+point_1_sip_row(4, xli('x' => 700, 'y' => 100), '-y', [9 .. 12]);
+point_1_sip_row(8, xli('x' => 700, 'y' => 500), '-x', [13 .. 21]);
 
 $pcb->element_output();
 
