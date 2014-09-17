@@ -1,0 +1,95 @@
+[options]
+# rotate_labels rotates the pintext of top and bottom pins
+# wordswap swaps labels if the pin is on the right side an looks like this:
+# "PB1 (CLK)"
+wordswap=yes
+rotate_labels=yes
+sort_labels=no
+generate_pinseq=no
+sym_width=6000
+pinwidthvertikal=400
+pinwidthhorizontal=400
+
+[geda_attr]
+# name will be printed in the top of the symbol
+# if you have a device with slots, you'll have to use slot= and slotdef=
+# use comment= if there are special information you want to add
+version=20120816
+name=ARDUINO UNO R3
+device=ARDUINO UNO R3
+refdes=U?
+footprint=TO_BE_SET_AUTOMAGICALLY
+description=free ATMEGA328P-PU development board
+author=Britton Kerin
+documentation=Mouser part number 782-A000066
+numslots=0
+#slot=1
+#slotdef=1:
+#slotdef=2:
+#slotdef=3:
+#slotdef=4:
+connect=A number of pins are electrically connection to each other.
+comment=All ICSP pins are connected to some other other pins.
+comment=Parens indicate the connected ATMega328P pin.
+comment=Parens *do not* indicate an *exclusive* ATMega328P pin connection.
+
+[pins]
+# tabseparated list of pin descriptions
+# pinnr is the physical number of the pin
+# seq is the pinseq= attribute, leave it blank if it doesn't matter
+# type can be (in, out, io, oc, oe, pas, tp, tri, clk, pwr)
+# style can be (line,dot,clk,dotclk,none). none if only want to add a net
+# posit. can be (l,r,t,b) or empty for nets
+# net specifies the name of the Vcc or GND name
+# label represents the pinlabel.
+#	negation lines can be added with _Q_
+#	if you want to add a "_" or "\" use "\_" and "\\" as escape sequences
+#-----------------------------------------------------
+#pinnr	seq	type	style	posit.	net	label
+#-----------------------------------------------------
+1	1	oc	line	l		NC
+2	2	io	line	l		IOREF
+3	3	io	line	l		RESET (PC6)
+4	4	pwr	line	l		3V3
+5	5	pwr	line	l		5V
+6	6	pwr	line	l		GND (GND)
+7	7	pwr	line	l		GND (GND)
+8	8	pwr	line	l		VIN
+9	9	io	line	l		A0 (PC0)
+10	10	io	line	l		A1 (PC1)
+11	11	io	line	l		A2 (PC2)
+12	12	io	line	l		A3 (PC3)
+13	13	io	line	l		A4 (PC4)
+14	14	io	line	l		A5 (PC5)
+32	32	oc	line	r		A5 (PC4)
+31	31	oc	line	r		A4 (PC5)
+30	30	io	line	r		AREF (AREF)
+29	29	pwr	line	r		GND (GND)
+28	28	io	line	r		DIGITAL13 (PB5)
+27	27	io	line	r		DIGITAL12 (PB4)
+26	26	io	line	r		DIGITAL11 (PB3)
+25	25	io	line	r		DIGITAL10 (PB2)
+24	24	io	line	r		DIGITAL9 (PB1)
+23	23	io	line	r		DIGITAL8 (PB0)
+22	22	io	line	r		DIGITAL7 (PD7)
+21	21	io	line	r		DIGITAL6 (PD6)
+20	20	io	line	r		DIGITAL5 (PD5)
+19	19	io	line	r		DIGITAL4 (PD4)
+18	18	io	line	r		DIGITAL3 (PD3)
+17	17	io	line	r		DIGITAL2 (PD2)
+16	17	io	line	r		DIGITAL1 (PD1)
+15	15	io	line	r		DIGITAL0 (PD0)
+
+33	33	oc	line	b		ICSP_PB4
+34	34	oc	line	b		ICSP_5V
+35	35	oc	line	b		ICSP_PB5
+36	36	oc	line	b		ICSP_PB3
+37	37	oc	line	b		ICSP_RESET
+38	38	oc	line	b		ICSP_GND
+
+# NOTE: the ISP1 header is for programming the ATMEGA16U2 chip that is
+# used by # the Uno for USB-serial communication.  There is hopefully
+# little reason that Uno users would ever want to reprogram this chip, and
+# even less reason they would want to connect to it from a shield or in a
+# finished arduino-based design.  This header is therefore not represented
+# in this symbol or footprint.

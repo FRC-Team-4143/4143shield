@@ -1,0 +1,82 @@
+[options]
+# rotate_labels rotates the pintext of top and bottom pins
+# wordswap swaps labels if the pin is on the right side an looks like this:
+# "PB1 (CLK)"
+wordswap=no
+rotate_labels=yes
+sort_labels=no
+generate_pinseq=no
+sym_width=8000
+pinwidthvertikal=400
+pinwidthhorizontal=400
+
+[geda_attr]
+# name will be printed in the top of the symbol
+# if you have a device with slots, you'll have to use slot= and slotdef=
+# use comment= if there are special information you want to add
+version=20140510
+name=RoboRio MXP port
+device=RoboRio MXP port 
+refdes=U?
+footprint=TO_BE_SET_AUTOMAGICALLY
+description=break out arduino and roborio pins
+author=Ryan Shoff
+documentation=part number
+numslots=0
+#slot=1
+#slotdef=1:
+#slotdef=2:
+#slotdef=3:
+#slotdef=4:
+connect=A number of pins are electrically connection to each other.
+comment=comment 1
+comment=comment 2
+
+[pins]
+# tabseparated list of pin descriptions
+# pinnr is the physical number of the pin
+# seq is the pinseq= attribute, leave it blank if it doesn't matter
+# type can be (in, out, io, oc, oe, pas, tp, tri, clk, pwr)
+# style can be (line,dot,clk,dotclk,none). none if only want to add a net
+# posit. can be (l,r,t,b) or empty for nets
+# net specifies the name of the Vcc or GND name
+# label represents the pinlabel.
+#	negation lines can be added with _Q_
+#	if you want to add a "_" or "\" use "\_" and "\\" as escape sequences
+#-----------------------------------------------------
+#pinnr	seq	type	style	posit.	net	label
+#-----------------------------------------------------
+1	1	io	line	r		5V	
+2	2	io	line	l		AO0
+3	3	io	line	r		AI0
+4	4	io	line	l		AO1
+5	5	io	line	r		AI1
+6	6	pwr	line	l		AGND
+7	7	io	line	r		AI2
+8	8	pwr	line	l		DGND
+9	9	io	line	r		AI3
+10	10	io	line	l		UART.RX
+11	11	io	line	r		PWM0
+12	12	pwr	line	l		DGND
+13	13	io	line	r		PWM1
+14	14	io	line	l		UART.TX
+15	15	io	line	r		PWM2
+16	16	pwr	line	l		DGND
+17	17	io	line	r		PWM3
+18	18	io	line	l		PWM7
+19	19	io	line	r		SPI CS
+20	20	pwr	line	l		DGND
+21	21	io	line	r		SPI CLK
+22	22	io	line	l		PWM8
+23	23	io	line	r		SPI MISO
+24	24	pwr	line	l		DGND
+25	25	io	line	r		SPI MOSI
+26	26	io	line	l		PWM9	
+27	27	io	line	r		PWM4
+28	28	pwr	line	l		DGND
+29	29	io	line	r		PWM5
+30	30	pwr	line	l		DGND
+31	31	io	line	r		PWM6
+32	32	io	line	l		I2C SCL
+33	33	pwr	line	r		3.3V
+34	34	io	line	l		I2C SDA

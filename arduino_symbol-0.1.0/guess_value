@@ -1,0 +1,30 @@
+#!/usr/bin/perl -w
+
+# Given a directory name like the ones we use for parts, print a reasonable
+# guess at the value attribute that should be used in the symbol.
+
+use strict;
+use warnings FATAL => 'all';
+
+@ARGV == 1 or die "wrong number of arguments";
+
+my $pdir = $ARGV[0];
+
+my $sfp = '(?:\d+(?:\.\d+)?)';   # Simple float pattern
+
+$pdir = '/'.$pdir;   # Fake things so we match start of string always
+
+my $vpp = '.*(?<=--)('.$sfp.')_?';  # Value pattern plus a bit (note save)
+
+my $cap_met_pfxs = '(?:[pnum])';
+my $res_met_pfxs = '(?:[mkMG])';
+
+if ( $pdir =~ m/\/capacitor--$vpp($cap_met_pfxs?)F--/ ) {
+    print "$1 $2\n";
+}
+elsif ( $pdir =~ m/\/resistor--$vpp($res_met_pfxs?)ohm--/ ) {
+    print "$1 $2\n";
+}
+elsif ( $pdir =~ m/\/zener_diode--${vpp}V_Vz--/ ) {
+    print "$1\n";
+}

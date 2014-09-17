@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+<head>
+  <title>GEDA Symbol/Footprint for Arduino Uno Rev.3 and/or Shields</title>
+  <meta name="keywords" content="arduino, PCB, geda, gEDA, GEDA" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <!--  FIXME: enable this, not sure if needs different code for each page
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-23228808-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+  -->
+
+</head>
+
+<body>
+
+  <h1>GEDA Symbol/Footprint for Arduino Uno Rev.3 and/or Shields</h1>
+
+  <h2>What it is</h2>
+
+  This package contains both a
+  <a href="http://www.geda-project.org/">gschem</a> symbol and an associated
+  <a href="http://pcb.geda-project.org/">pcb</a> footprint for an
+  <a href="http://www.arduino.cc/">Arduino</a> or shield.  You can use the
+  gschem symbol to represent an Arduino board in your shield schematic design,
+  and produce a real physical shield board using the footprint.  The footprint
+  specification is propagated from gschem to pcb software automatically via
+  gsch2pcb.  This is what is sometimes called a 'heavy symbol' because it
+  consists of a linked schematic symbol and an associated footprint.<p />
+
+  Take a look at the <a href="symbol_screenshot.png">symbol screenshot</a> or
+  <a href="footprint_screenshot.png">footprint screenshot</a>.
+
+  <h2>How to use it</h2>
+
+  <ol>
+    <li>
+    <a href="releases/">Download</a> the tarball and unpack it as usual.<p />
+    </li>
+    <li>
+      From the toplevel distribution directory, do
+      <pre><code>    cp --deref *.sym *_fpt my_project_dir</code></pre>
+    </li>
+    <li>
+      Make sure gschem knows where to find the symbol: put a line like
+      <pre> <code>    (component-library "my_project_dir")</code> </pre>
+      or
+      <pre> <code>    (component-library ".")</code> </pre>
+      in your ~/.gEDA/gafrc if you haven't already.<p />
+    </li>
+    <li>
+      Make sure gsch2pcb knows where to find the footprint: I use an alias line
+      in my ~/.bashrc to give gsch2pcb the correct options:
+      <pre><code>
+    gsch2pcb='gsch2pcb --use-files -d my_project_dir -d `pwd`'
+      </pre></code>
+    </li>
+  </ol>
+
+  The tarball contains the build symbol and footprint, but you can rebuild them
+  if you need to tweak anything. From the distribution directory, just use
+  <pre><code>     make symbols</code></pre>
+  <p />
+
+  Note that the distribution Makefile contains a potentially useful system for
+  creating other heavy symbols you may need for you project.  The
+  <code>symbols</code> target is the top level Make target for rebuilding
+  symbols.
+
+  <h2>Questions, Comments, Bug Reports</h2>
+
+  Send them to britton DOT kerin AT gmail DOT com, and put [arduino-symbol]
+  in the subject.
+  <p />
+  Enjoy.
+
+<!-- Google analytics goop: -->  
+<!-- FIXME: put the analytics goop here if w ereally want it -->
+
+</body>
+
+</html>

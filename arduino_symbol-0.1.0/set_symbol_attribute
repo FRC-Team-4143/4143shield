@@ -1,0 +1,45 @@
+#!/usr/bin/perl -w
+
+# Given the name of a symbol file, the name of a symbol attribute, and
+# the value that that attribute should have , ensure that the attribute is
+# present and set correctly (either by adding it to the file or resetting
+# it) and output the new symbol file text content on stdout.
+
+use strict;
+use warnings FATAL => 'all';
+
+@ARGV == 3 or die "wrong number of arguments";
+my ($sf, $sa, $av) = @ARGV;   # Symbol file, symbol attribute, attribute value
+
+open(SF, "<$sf") or die "couldn't open '$sf' for reading";
+
+my @sfl = <SF>;
+
+# If we already have the attribute, just reset it, print, and we're done.
+foreach ( @sfl ) {
+    if ( s/^\s*$sa=.*$/$sa=$av/ ) {
+        print @sfl;
+        exit(0);
+    }
+}
+
+# Otherwise, go on to find the highest text item so far.
+my $highest_t_x = -420000;
+my $highest_t_y = -420000;
+foreach  ( @sfl ) {
+    if ( m/^T (\d+) (\d+) / ) {
+        my ($tx, $ty) = ($1, $2);
+        if ( $ty > $highest_t_y ) {
+            ($highest_t_x, $highest_t_y) = ($tx, $ty);
+        }
+    }
+}
+
+my $trs = 200;   # Spacing that we assume between text attribute rows.
+
+# Output new symbol text, with attribute added.
+print @sfl;
+print "T $highest_t_x ".($highest_t_y + $trs)." 5 10 0 0 0 0 1\n".
+      "$sa=$av\n";
+
+exit(0);
