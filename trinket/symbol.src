@@ -15,11 +15,11 @@ pinwidthhorizontal=400
 # if you have a device with slots, you'll have to use slot= and slotdef=
 # use comment= if there are special information you want to add
 version=20140917
-name=TRINKET
-device=TRINKET
+name=TRINKETPRO
+device=TRINKETPRO
 refdes=U?
 footprint=TO_BE_SET_AUTOMAGICALLY
-description=Adafruit Trinket
+description=Adafruit Trinket Pro
 author=Ryan Shoff
 documentation=adafruit
 numslots=0
@@ -47,49 +47,37 @@ comment=Parens *do not* indicate an *exclusive* ATMega328P pin connection.
 #-----------------------------------------------------
 #pinnr	seq	type	style	posit.	net	label
 #-----------------------------------------------------
-1	1	oc	line	l		NC
-2	2	io	line	l		IOREF
-3	3	io	line	l		RESET (PC6)
-4	4	pwr	line	l		3V3
-5	5	pwr	line	l		5V
-6	6	pwr	line	l		GND (GND)
-7	7	pwr	line	l		GND (GND)
-8	8	pwr	line	l		VIN
-9	9	io	line	l		A0 (PC0)
-10	10	io	line	l		A1 (PC1)
-11	11	io	line	l		A2 (PC2)
-12	12	io	line	l		A3 (PC3)
-13	13	io	line	l		A4 (PC4)
-14	14	io	line	l		A5 (PC5)
-32	32	oc	line	r		A5 (PC4)
-31	31	oc	line	r		A4 (PC5)
-30	30	io	line	r		AREF (AREF)
-29	29	pwr	line	r		GND (GND)
-28	28	io	line	r		DIGITAL13 (PB5)
-27	27	io	line	r		DIGITAL12 (PB4)
-26	26	io	line	r		DIGITAL11 (PB3)
-25	25	io	line	r		DIGITAL10 (PB2)
-24	24	io	line	r		DIGITAL9 (PB1)
-23	23	io	line	r		DIGITAL8 (PB0)
-22	22	io	line	r		DIGITAL7 (PD7)
-21	21	io	line	r		DIGITAL6 (PD6)
-20	20	io	line	r		DIGITAL5 (PD5)
-19	19	io	line	r		DIGITAL4 (PD4)
-18	18	io	line	r		DIGITAL3 (PD3)
-17	17	io	line	r		DIGITAL2 (PD2)
-16	17	io	line	r		DIGITAL1 (PD1)
-15	15	io	line	r		DIGITAL0 (PD0)
+1	1	io	line	l		DIGITAL9
+2	2	io	line	l		DIGITAL10
+3	3	io	line	l		DIGITAL11
+4	4	io	line	l		DIGITAL12
+5	5	io	line	l		DIGITAL13
+6	6	io	line	l		AREF
+7	7	io	line	l		A0
+8	8	io	line	l		A1
+9	9	io	line	l		A2
+10	10	io	line	l		A3
+11	11	io	line	l		A4
+12	12	io	line	l		A5
 
-33	33	oc	line	b		ICSP_PB4
-34	34	oc	line	b		ICSP_5V
-35	35	oc	line	b		ICSP_PB5
-36	36	oc	line	b		ICSP_PB3
-37	37	oc	line	b		ICSP_RESET
-38	38	oc	line	b		ICSP_GND
+13	13	io	line	r		RESET
+14	14	io	line	r		RX
+15	15	io	line	r		TX
+16	16	io	line	r		DIGITAL3
+17	17	io	line	r		DIGITAL4
+18	18	io	line	r		DIGITAL5
+19	19	io	line	r		DIGITAL6
+20	20	io	line	r		DIGITAL8
+21	21	pwr	line	r		5V
+22	22	pwr	line	r		BUS
+23	23	pwr	line	r		GND
+24	24	pwr	line	r		BAT
 
-# NOTE: the ISP1 header is for programming the ATMEGA16U2 chip that is
-# used by # the Uno for USB-serial communication.  There is hopefully
-# little reason that Uno users would ever want to reprogram this chip, and
-# even less reason they would want to connect to it from a shield or in a
-# finished arduino-based design.  This header is therefore not represented
-# in this symbol or footprint.
+25	25	io	line	t		A6
+26	26	io	line	t		A7
+
+27	27	pwr	line	b		GND
+28	28	pwr	line	b		GND
+29	29	pwr	line	b		5V
+30	30	io	line	b		RX
+31	31	io	line	b		TX

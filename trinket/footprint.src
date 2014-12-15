@@ -53,7 +53,6 @@ sub srtxli # {{{1
 # Draw a box for the overall outline, excluding USB port and power jack
 # but including the small cut-outs at top and bottom on the other end of
 # the board.
-#arbcxli(0, 0, 2700, 2100);
 
 # Add outline for the USB jack.
 #arbcxli(-250, 1275, 375, 1725);
@@ -227,9 +226,13 @@ sub point_1_2_row_header # {{{1
 #point_1_sip_row(6, xli('x' => 2000-1000, 'y' => 1800), 'x', [9 .. 14]);
 #point_1_sip_row(6, xli('x' => 2000-1000, 'y' => 1900), 'x', [9 .. 14]);
 
-point_1_sip_row(8, xli('x' => 000, 'y' => 000), 'x', [1 .. 8]);
-point_1_sip_row(4, xli('x' => 700, 'y' => 100), '-y', [9 .. 12]);
-point_1_sip_row(8, xli('x' => 700, 'y' => 500), '-x', [13 .. 21]);
+point_1_sip_row(12, xli('x' => 000, 'y' => 000), 'x', [1 .. 12]);
+point_1_sip_row(6, xli('x' => 1200, 'y' => 50), '-y', [27 .. 33]);
+point_1_sip_row(12, xli('x' => 1100, 'y' => 600), '-x', [13 .. 24]);
+point_1_sip_row(2, xli('x' => 700, 'y' => 100), '-x', [25 .. 26]);
+
+arbcxli(-150, -50, 1300, 650);
+arbcxli(-170, 150, 50, 450);
 
 $pcb->element_output();
 

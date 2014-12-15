@@ -190,10 +190,12 @@ sub point_1_2_row_header # {{{1
 } # }}}1
 
 
-$pcb->element_add_pin( x => 500, y => 500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 1, clearance => 10);
-$pcb->element_add_pin( x => -500, y => 500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 2, clearance => 10);
-$pcb->element_add_pin( x => 500, y => -500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 3, clearance => 10);
-$pcb->element_add_pin( x => -500, y => -500, thickness => 66, drill_hole => 46, mask => 10, pin_number => 4, clearance => 10);
+$pcb->element_add_pin( x => 0, y => 828, thickness => 66, drill_hole => 46, mask => 10, pin_number => 1, clearance => 10);
+$pcb->element_add_pin( x => 586, y => 586, thickness => 66, drill_hole => 46, mask => 10, pin_number => 2, clearance => 10);
+$pcb->element_add_pin( x => 317, y => -765, thickness => 66, drill_hole => 46, mask => 10, pin_number => 3, clearance => 10);
+$pcb->element_add_pin( x => 0, y => -828, thickness => 66, drill_hole => 46, mask => 10, pin_number => 4, clearance => 10);
+$pcb->element_add_pin( x => -828, y => 0, thickness => 66, drill_hole => 46, mask => 10, pin_number => 5, clearance => 10);
+$pcb->element_add_pin( x => -765, y => 317, thickness => 66, drill_hole => 46, mask => 10, pin_number => 6, clearance => 10);
                                                                   
 
 $pcb->element_output();

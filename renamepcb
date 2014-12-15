@@ -1,0 +1,41 @@
+#! /usr/bin/python
+
+import os, re, sys
+
+
+layerMapping = {
+        "top":          "gtl",
+        "bottom":       "gbl",
+        "topmask":      "gts",
+        "bottommask":   "gbs",
+        "topsilk":      "gto",
+        "bottomsilk":   "gbo",
+        "plated-drill": "drl",### DIFFERENT EXTENSION
+        "group2":       "g2",
+        "group3":       "g3",
+        "toppaste":     "gtp",
+        "bottompaste":  "gbp",
+        "outline":      "outline",
+        }
+
+where = '.'
+try:
+    where = sys.argv[1]
+except:
+    pass
+
+pattern = re.compile(r'^(?P<basename>[^\.]*)\.(?P<layer>[^\.]*)\.(?P<ext>(gbr)|(cnc))$')
+os.chdir(where)
+for filename in os.listdir('.'):
+        if filename.endswith(".gbr") or filename.endswith(".cnc"):
+            match = re.search(pattern,filename)
+            if match:
+                if match.group('layer') in layerMapping:
+                    newFilename = match.group('basename')+'.'+match.group('layer')+'.'+layerMapping[match.group('layer')]
+                    print 'Renaming \'{0}\' to \'{1}\''.format(filename, newFilename)
+                    os.rename(filename, newFilename)
+            else:
+                print 'No match.', filename
+
+
+sys.exit(0)

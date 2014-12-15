@@ -47,7 +47,9 @@ comment=Parens *do not* indicate an *exclusive* ATMega328P pin connection.
 #-----------------------------------------------------
 #pinnr	seq	type	style	posit.	net	label
 #-----------------------------------------------------
-1	1	pwr	line	l		5V
-2	2	pwr	line	l		GND
-3	3	io	line	l		DATAIN
-4	4	io	line	l		DATAOUT
+1	1	io	line	l		IN
+2	2	io	line	l		out
+3	3	pwr	line	l		Gnd
+4	4	pwr	line	l		Gnd
+5	5	pwr	line	l		V+
+6	6	pwr	line	l		V+
